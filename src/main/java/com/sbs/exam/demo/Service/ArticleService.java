@@ -9,21 +9,19 @@ import com.sbs.exam.demo.vo.Article;
 
 @Service
 public class ArticleService {
+	private ArticleRepository articleRepository;
 
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
-
 	}
 
-	private ArticleRepository articleRepository;
+	public int writeArticle(String title, String body) {
 
-	private void writeArticle(String title, String body) {
 		articleRepository.writeArticle(title, body);
-
+		return articleRepository.lastInsertId();
 	}
 
 	public List<Article> getArticles() {
-
 		return articleRepository.getArticles();
 	}
 
@@ -31,13 +29,12 @@ public class ArticleService {
 		return articleRepository.getArticle(id);
 	}
 
-	public void doDelete(int id) {
-		articleRepository.doDelete(id);
+	public void deleteArticle(int id) {
+		articleRepository.deleteArticle(id);
 	}
 
-	public void doModify(int id, String title, String body) {
-
-		articleRepository.doModify(id, title, body);
+	public void modifyArticle(int id, String title, String body) {
+		articleRepository.modifyArticle(id, title, body);
 	}
 
 }

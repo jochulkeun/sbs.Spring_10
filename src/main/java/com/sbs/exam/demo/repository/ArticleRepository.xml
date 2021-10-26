@@ -20,10 +20,15 @@
 	</delete> 
 	<update id="modifyArticle" >
 	UPDATE  article 
-	SET title = #{title}, 
-	`body` = #{body}, 
-	updateDate = NOW() 
+	<set>
+      <if test="title != null and title !=''">
+      title=#{title},
+      </if>
+      <if test="body != null and body !=''">`body`=#{body},
+      </if>
+     updateDate = NOW() 
 	WHERE id = #{id}
+    </set>
 	</update>
 	<select  id="getArticles" resultType="Article">
 	SELECT * FROM article 

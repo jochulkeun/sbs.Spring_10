@@ -1,26 +1,12 @@
 package com.sbs.exam.demo.repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 
-import org.springframework.stereotype.Component;
-
-import com.sbs.exam.demo.vo.Member;
-@Component
-public class memberRepository {
-
-	private List<Member> members;
-
-	public memberRepository() {
-
-		members = new ArrayList<>();
-	}
-
-	public List<Member> doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
-			String email) {
-		Member member = new Member(loginId,loginPw,name,nickname,cellPhoneNo,email);
-		members.add(member);
-		return members;
-	}
+@Mapper
+public interface memberRepository {
+	@Insert("INSERT INTO `member` (loginId,loginPw,`name`,nickname,cellPhoneNo,email,regDate,updateDate) "
+			+ "VALUES(#{loginId},#{loginPw},#{name},#{nickname},#{cellPhoneNo},#{email},NOW(),NOW())")
+	public void doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo, String email);
 
 }

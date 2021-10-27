@@ -20,8 +20,8 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public List<Member> doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
+	public void doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
 			String email) {
-		return memberService.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
+		memberService.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
 	}
 }

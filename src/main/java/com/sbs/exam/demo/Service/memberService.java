@@ -17,10 +17,10 @@ public class memberService {
 		this.memberRepository = memberRepository;
 	}
 
-	public List<Member> doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
+	public void doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
 			String email) {
 
-		return memberRepository.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
+		 memberRepository.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
 	}
 
 }

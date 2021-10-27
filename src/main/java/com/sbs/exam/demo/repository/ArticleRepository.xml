@@ -21,11 +21,9 @@
 	<update id="modifyArticle" >
 	UPDATE  article 
 	<set>
-      <if test="title != null and title !=''">
-      title=#{title},
+      <if test="title != null and title !=''">title=#{title},
       </if>
-      <if test="body != null and body !=''">`body`=#{body},
-      </if>
+      <if test="body != null and body !=''">`body`=#{body},</if>
      updateDate = NOW() 
 	WHERE id = #{id}
     </set>

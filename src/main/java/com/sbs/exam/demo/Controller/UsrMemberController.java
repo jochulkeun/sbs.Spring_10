@@ -18,16 +18,13 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public String doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo, String email) {
-		memberService.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
-
-		return "회원가입 되었습니다.";
-	}
-
-	@RequestMapping("/usr/member/showmember")
-	@ResponseBody
-	public Member showMember(int id) {
-		Member member = memberService.showMember(id);
+	public Member doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo, String email) {
+		
+		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
+		
+		Member member = memberService.getMember(id);
 		return member;
 	}
+
+
 }

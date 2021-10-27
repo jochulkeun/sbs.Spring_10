@@ -1,7 +1,5 @@
 package com.sbs.exam.demo.Service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.sbs.exam.demo.repository.memberRepository;
@@ -21,6 +19,11 @@ public class memberService {
 			String email) {
 
 		 memberRepository.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
+	}
+
+	public Member showMember(int id) {
+		
+		return memberRepository.showMember(id);
 	}
 
 }

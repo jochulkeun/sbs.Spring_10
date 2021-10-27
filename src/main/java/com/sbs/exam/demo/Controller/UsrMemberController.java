@@ -1,7 +1,5 @@
 package com.sbs.exam.demo.Controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,8 +18,16 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public void doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
-			String email) {
+	public String doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo, String email) {
 		memberService.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
+
+		return "회원가입 되었습니다.";
+	}
+
+	@RequestMapping("/usr/member/showmember")
+	@ResponseBody
+	public Member showMember(int id) {
+		Member member = memberService.showMember(id);
+		return member;
 	}
 }

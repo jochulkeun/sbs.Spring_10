@@ -15,13 +15,13 @@ public class memberService {
 		this.memberRepository = memberRepository;
 	}
 
-	public int doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
+	public int doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 		Member oldMember = memberRepository.getMemberloginId(loginId);
 		if(oldMember != null) {
 			return -1;
 		}
-		 memberRepository.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
+		 memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 		 return memberRepository.LastInsertId();
 	}
 

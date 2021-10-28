@@ -10,7 +10,7 @@ import com.sbs.exam.demo.vo.Member;
 public interface memberRepository {
 	@Insert("INSERT INTO `member` (loginId,loginPw,`name`,nickname,cellPhoneNo,email,regDate,updateDate) "
 			+ "VALUES(#{loginId},#{loginPw},#{name},#{nickname},#{cellPhoneNo},#{email},NOW(),NOW())")
-	public void doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo, String email);
+	public void doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email);
 	@Select("SELECT LAST_INSERT_ID()")
 	int LastInsertId();
 	@Select("SELECT * FROM `member` WHERE id = #{id}")

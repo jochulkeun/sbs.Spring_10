@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.exam.demo.Service.memberService;
 import com.sbs.exam.demo.vo.Member;
-
+ 
 @Controller
 public class UsrMemberController {
 	private memberService memberService;

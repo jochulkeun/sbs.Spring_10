@@ -17,7 +17,10 @@ public class memberService {
 
 	public int doJoin(String loginId, String loginPw, String name, String nickname, int cellPhoneNo,
 			String email) {
-
+		Member oldMember = memberRepository.getMemberloginId(loginId);
+		if(oldMember != null) {
+			return -1;
+		}
 		 memberRepository.doJoin(loginId, loginPw, name, nickname, cellPhoneNo, email);
 		 return memberRepository.LastInsertId();
 	}

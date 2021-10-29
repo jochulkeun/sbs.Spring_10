@@ -47,6 +47,9 @@ public class UsrMemberController {
 			
 			return "중복된 아이디 입니다.";
 		}
+		if(id == -2) {
+			return "중복된 아이디,이메일 입니다.";
+		}
 		Member member = memberService.getMember(id);
 		return member;
 	}

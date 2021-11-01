@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sbs.exam.demo.Service.memberService;
 import com.sbs.exam.demo.util.Ut;
 import com.sbs.exam.demo.vo.Member;
- 
+
 @Controller
 public class UsrMemberController {
 	private memberService memberService;
@@ -19,7 +19,8 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+			String email) {
 		if (Ut.Empty(loginId)) {
 			return "loginId(을)를 입력해주세요.";
 		}
@@ -38,23 +39,18 @@ public class UsrMemberController {
 		if (Ut.Empty(email)) {
 			return "email(을)를 입력해주세요.";
 		}
-		
-		
+
 		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
-		
-		
-		if(id == -1) {
-			
-			return "중복된 아이디 입니다.";
+
+		if (id == -1) {
+
+			return Ut.f("(%s)은(는)사용중인 아이디 입니다.", loginId);
 		}
-		if(id == -2) {
-			return "중복된 아이디,이메일 입니다.";
+		if (id == -2) {
+			return Ut.f("(%s)은(%s)는 사용중인 정보 입니다.", name, email);
 		}
 		Member member = memberService.getMember(id);
 		return member;
 	}
-
-
-
 
 }

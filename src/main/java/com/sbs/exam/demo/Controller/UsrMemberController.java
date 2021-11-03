@@ -42,6 +42,7 @@ public class UsrMemberController {
 		}
 
 		ResultData joinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
+		
 		if(joinRd.isFail()) {
 			return joinRd;
 		}

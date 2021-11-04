@@ -22,20 +22,20 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public ResultData doAdd(HttpSession httpSession,String title, String body) {
-		
+	public ResultData doAdd(HttpSession httpSession, String title, String body) {
+
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
-			loginedMemberId =(int) httpSession.getAttribute("loginedMemberId");
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
 		}
 
 		if (isLogined == false) {
 			return ResultData.from("F-5", "로그인후 이용바랍니다.");
 		}
-		
+
 		if (Ut.Empty(title)) {
 			return ResultData.from("F-1", "title을 입력해 주세요");
 		}
@@ -43,7 +43,7 @@ public class UsrArticleController {
 			return ResultData.from("F-2", "body을 입력해 주세요");
 		}
 
-		ResultData writeArticleRd = articleService.writeArticle(loginedMemberId,title, body);
+		ResultData writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
 		int id = (int) writeArticleRd.getData1();
 
 		Article article = articleService.getArticle(id);
@@ -72,25 +72,28 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public ResultData doDelete(HttpSession httpSession, int id) {
-		
+
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
-			loginedMemberId =(int) httpSession.getAttribute("loginedMemberId");
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
 		}
-		
+		if (isLogined == false) {
+			return ResultData.from("F-5", "로그인후 이용바랍니다.");
+		}
+
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
-		
-		if(article.getMemberId() != loginedMemberId ) {
+
+		if (article.getMemberId() != loginedMemberId) {
 			return ResultData.from("F-2", "해당글에 권한이 없습니다.");
 		}
-		
+
 		articleService.deleteArticle(id);
 
 		return ResultData.from("S-1", Ut.f("%d번 게시물을 삭제했습니다.", id));
@@ -98,11 +101,26 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
+	public ResultData doModify(HttpSession httpSession,int id, String title, String body) {
+
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+		if (isLogined == false) {
+			return ResultData.from("F-5", "로그인후 이용바랍니다.");
+		}
+
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+		}
+		if(article.getMemberId() != loginedMemberId) {
+			return ResultData.from("F-1", "해당글에 수정권한이 없습니다.");
 		}
 
 		articleService.modifyArticle(id, title, body);

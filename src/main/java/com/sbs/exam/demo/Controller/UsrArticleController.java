@@ -101,7 +101,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(HttpSession httpSession,int id, String title, String body) {
+	public ResultData doModify(HttpSession httpSession, int id, String title, String body) {
 
 		boolean isLogined = false;
 		int loginedMemberId = 0;
@@ -119,15 +119,17 @@ public class UsrArticleController {
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
-		if(article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-1", "해당글에 수정권한이 없습니다.");
+		if (article.getMemberId() != loginedMemberId) {
+			return ResultData.from("F-2", "해당글에 수정권한이 없습니다.");
+		}
+//		loginedMemberId 와 연결된 해당 아티클이 유저가 사용가능한지 여부 판단 메서드
+		ResultData userCanModifyRd = articleService.userCanModify(loginedMemberId, article);
+
+		if (userCanModifyRd.isFail()) {
+			return userCanModifyRd;
 		}
 
-		articleService.modifyArticle(id, title, body);
-
-		return ResultData.from("F-1", Ut.f("%d번이 수정되었습니다.", id));
+		return articleService.modifyArticle(id, title, body);
 	}
-
-	// 액션메서드 끝
 
 }

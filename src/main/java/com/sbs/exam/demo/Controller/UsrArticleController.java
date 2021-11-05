@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,7 +14,6 @@ import com.sbs.exam.demo.Service.ArticleService;
 import com.sbs.exam.demo.util.Ut;
 import com.sbs.exam.demo.vo.Article;
 import com.sbs.exam.demo.vo.ResultData;
-import com.sun.net.httpserver.Authenticator.Result;
 
 @Controller
 public class UsrArticleController {
@@ -52,13 +52,12 @@ public class UsrArticleController {
 		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
-	@RequestMapping("/usr/article/getArticles")
-	@ResponseBody
-	public ResultData getArticles() {
+	@RequestMapping("/usr/article/list")
+	public String getArticles(Model model) {
 
 		List<Article> article = articleService.getArticles();
-
-		return ResultData.from("S-1", "게시물 리스트 입니다.", "article", article);
+		model.addAttribute("article", article);
+		return "/usr/article/list";
 	}
 
 	@RequestMapping("/usr/article/getArticle")

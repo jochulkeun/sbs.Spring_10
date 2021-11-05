@@ -1,15 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>°Ô½Ã¹° ¸®½ºÆ®</title>
+<meta charset="UTF-8">
+<title>List</title>
 </head>
 <body>
-	<h1>°Ô½Ã¹° ¸®½ºÆ®</h1>
-	<div>
-	<%=request.getAttribute("article") %>
-	</div>
+	<h1>List</h1>
+	<hr />
+	<table border=1>
+		<thead>
+			<tr>
+				<th>ë²ˆí˜¸</th>
+				<th>ì‘ì„±ë‚ ì§œ</th>
+				<th>ìˆ˜ì •ë‚ ì§œ</th>
+				<th>ì œëª©</th>
+				<th>ì‘ì„±ì</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="article" items="${articles}">
+				<tr>
+					<td>${article.id}</td>
+					<td>${article.regDate.substring(2,16)}</td>
+					<td>${article.updateDate.substring(2,16)}</td>
+					<td>
+					<a href="../article/detail?id"={article.id}>${article.title}</a></td>
+					<td>${article.memberId}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>

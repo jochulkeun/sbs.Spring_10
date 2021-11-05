@@ -21,7 +21,7 @@ public class ArticleService {
 
 		articleRepository.writeArticle(memberId,title, body);
 		int id = articleRepository.getLastInsertId();
-		return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다",id),id);
+		return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다",id),"id",id);
 	}
 
 	public List<Article> getArticles() {
@@ -36,11 +36,11 @@ public class ArticleService {
 		articleRepository.deleteArticle(id);
 	}
 
-	public ResultData modifyArticle(int id, String title, String body) {
+	public ResultData<Article> modifyArticle(int id, String title, String body) {
 		articleRepository.modifyArticle(id, title, body);
 		
 		Article article = getArticle(id);
-		return ResultData.from("S-2",Ut.f("%d번 글이 수정되었습니다.",id),article);
+		return ResultData.from("S-1",Ut.f("%d번 글이 수정되었습니다.",id),"article",article);
 	}
 
 	public ResultData userCanModify(int userId, Article article) {

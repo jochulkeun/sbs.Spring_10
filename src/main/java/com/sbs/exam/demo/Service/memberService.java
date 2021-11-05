@@ -31,7 +31,7 @@ public class memberService {
 		 memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
 		 int id = memberRepository.LastInsertId();
 		 
-		 return ResultData.from("S-1", Ut.f("회원가입이 완료되었습니다."),id);
+		 return ResultData.from("S-1", Ut.f("회원가입이 완료되었습니다."),"id",id);
 	}
 
 	public Member getMemberloginId(String loginId) {

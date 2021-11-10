@@ -8,6 +8,15 @@
 <title>List</title>
 </head>
 <body>
+
+	<header>
+		<a href="/">로고</a>
+		<ul>
+			<a href="/"><li>홈</li></a>
+			<a href="/usr/home/main"><li>홈</li></a>
+		</ul>
+	</header>
+
 	<h1>List</h1>
 	<hr />
 	<table border=1>
@@ -26,8 +35,7 @@
 					<td>${article.id}</td>
 					<td>${article.regDate.substring(2,16)}</td>
 					<td>${article.updateDate.substring(2,16)}</td>
-					<td>
-					<a href="../article/detail?id"={article.id}>${article.title}</a></td>
+					<td><a href="../article/detail?id"={article.id}>${article.title}</a></td>
 					<td>${article.memberId}</td>
 				</tr>
 			</c:forEach>

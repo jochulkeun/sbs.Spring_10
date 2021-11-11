@@ -9,27 +9,25 @@
 		<div class="table-box-type-1">
 			<hr />
 			<table border=1>
-				<thead>
+
+				<tbody>
 					<tr>
 						<th>번호</th>
+						<td>${article.id}</td>
 						<th>작성날짜</th>
+						<td>${article.regDate.substring(2,16)}</td>
 						<th>수정날짜</th>
+						<td>${article.updateDate.substring(2,16)}</td>
 						<th>제목</th>
+						<td>${article.title}</td>
 						<th>작성자</th>
+						<td>${article.memberId}</td>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="article" items="${articles}">
-						<tr>
-							<td>${article.id}</td>
-							<td>${article.regDate.substring(2,16)}</td>
-							<td>${article.updateDate.substring(2,16)}</td>
-							<td><a href="../article/detail?id=${article.id}">${article.title}</a></td>
-							<td>${article.memberId}</td>
-						</tr>
-					</c:forEach>
 				</tbody>
 			</table>
+		</div>
+		<div class="btns">
+		<button type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
 </section>

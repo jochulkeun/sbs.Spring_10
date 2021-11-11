@@ -9,6 +9,9 @@
 		<div class="table-box-type-1">
 			<hr />
 			<table border=1>
+			<colgroup>
+				<col width="200">
+			</colgroup>
 
 				<tbody>
 					<tr>

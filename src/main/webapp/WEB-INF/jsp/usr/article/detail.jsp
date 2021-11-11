@@ -24,13 +24,15 @@
 						<th>제목</th>
 						<td>${article.title}</td>
 						<th>작성자</th>
-						<td>${article.memberId}</td>
+						<td>${article.extra__writer}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div class="btns">
-		<button type="button" onclick="history.back();">뒤로가기</button>
+		<div class="btns mt-2">
+		<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+		<a  href="../article/Modify=id?${article.id}" class="btn-text-link ml-2">게시물 수정</a>
+	    <a onclick="if ( confrim('게시물을 삭제하시겠습니까?') == false ) { return false; }" href="../article/doDelete?id=${article.id}" class="btn-text-link ml-2">게시물 삭제</a>
 		</div>
 	</div>
 </section>

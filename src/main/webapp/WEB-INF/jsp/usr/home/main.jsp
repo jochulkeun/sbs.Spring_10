@@ -3,9 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="titlePage" value="홈"/>
 
-<%@ include file="../common/head.jspf" %>
-<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-  Atque fuga doloribus pariatur nemo aperiam aut suscipit architecto
-  itaque modi delectus. Ratione quis fuga nihil rerum recusandae fugiat
-  quibusdam nesciunt pariatur!</div>
-<%@ include file="../common/foot.jspf" %>
+<%@ include file="../common/head.jspf"%>
+<section class="mt-5">
+  <div class="container mx-auto px-3">Lorem ipsum dolor sit amet,
+    consectetur adipisicing elit. Atque fuga doloribus pariatur nemo
+    aperiam aut suscipit architecto itaque modi delectus. Ratione quis
+    fuga nihil rerum recusandae fugiat quibusdam nesciunt pariatur!</div>
+</section>
+<%@ include file="../common/foot.jspf"%> 

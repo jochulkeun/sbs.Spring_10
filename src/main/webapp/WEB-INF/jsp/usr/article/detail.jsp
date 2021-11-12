@@ -9,20 +9,28 @@
 		<div class="table-box-type-1">
 			<hr />
 			<table border=1>
-			<colgroup>
-				<col width="200">
-			</colgroup>
+				<colgroup>
+					<col width="200">
+				</colgroup>
 
 				<tbody>
 					<tr>
 						<th>번호</th>
 						<td>${article.id}</td>
+					</tr>
+					<tr>
 						<th>작성날짜</th>
 						<td>${article.regDate.substring(2,16)}</td>
+					</tr>
+					<tr>
 						<th>수정날짜</th>
 						<td>${article.updateDate.substring(2,16)}</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td>${article.title}</td>
+					</tr>
+					<tr>
 						<th>작성자</th>
 						<td>${article.extra__writer}</td>
 					</tr>
@@ -30,9 +38,11 @@
 			</table>
 		</div>
 		<div class="btns mt-2">
-		<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-		<a  href="../article/Modify=id?${article.id}" class="btn-text-link ml-2">게시물 수정</a>
-	    <a onclick="if ( confrim('게시물을 삭제하시겠습니까?') == false ) { return false; }" href="../article/doDelete?id=${article.id}" class="btn-text-link ml-2">게시물 삭제</a>
+			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+			<a href="../article/Modify=id?${article.id}"class="btn-text-link ml-2">게시물 수정</a> 
+			<c:if test="${article.extra__actorCanDelete}">
+			<a onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"href="../article/doDelete?id=${article.id}"class="btn-text-link ml-2">게시물 삭제</a>
+			</c:if>
 		</div>
 	</div>
 </section>

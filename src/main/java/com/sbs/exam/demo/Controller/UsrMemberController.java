@@ -70,6 +70,13 @@ public class UsrMemberController {
 
 		return ResultData.from("S-1", "로그아웃 되었습니다.");
 	}
+	
+	@RequestMapping("/usr/member/login")
+	public String showLogin(HttpSession httpSession) {
+		
+		return "/usr/member/login";
+	}
+
 
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody

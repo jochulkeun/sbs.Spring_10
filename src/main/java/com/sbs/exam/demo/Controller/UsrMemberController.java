@@ -55,7 +55,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData doLogout(HttpSession httpSession) {
+	public String doLogout(HttpSession httpSession) {
 		boolean isLogined = false;
 
 		if (httpSession.getAttribute("loginedMemberId") == null) {
@@ -63,12 +63,12 @@ public class UsrMemberController {
 		}
 
 		if (isLogined) {
-			return ResultData.from("F-5", "이미 로그아웃 되어있습니다.");
+			return Ut.jsHistoryBack("이미 로그아웃 되어있습니다.");
 		}
 
 		httpSession.removeAttribute("loginedMemberId");
 
-		return ResultData.from("S-1", "로그아웃 되었습니다.");
+		return Ut.jsReplace(Ut.f("로그아웃 되었습니다."), "/");
 	}
 	
 	@RequestMapping("/usr/member/login")
@@ -80,7 +80,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
 		boolean isLogined = false;
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {
@@ -88,27 +88,27 @@ public class UsrMemberController {
 		}
 
 		if (isLogined) {
-			return ResultData.from("F-5", "이미 로그인되어있습니다.");
+			return Ut.jsHistoryBack("이미 로그인되어있습니다.");
 		}
 
 		if (Ut.Empty(loginId)) {
-			return ResultData.from("F-1", "loginId 를(을)를 확인해주세요");
+			return Ut.jsHistoryBack("loginId 를(을)를 확인해주세요");
 		}
 		if (Ut.Empty(loginPw)) {
-			return ResultData.from("F-2", "loginPw 를(을)를 확인해주세요");
+			return Ut.jsHistoryBack("loginPw 를(을)를 확인해주세요");
 		}
 
 		Member member = memberService.getMemberloginId(loginId);
 		if (member == null) {
-			return ResultData.from("F-3", "아이디를(을)를 확인해주세요");
+			return Ut.jsHistoryBack("아이디를(을)를 확인해주세요");
 		}
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return ResultData.from("F-4", "비밀번호(을)를 확인해주세요");
+			return Ut.jsHistoryBack("비밀번호(을)를 확인해주세요");
 		}
 
 		httpSession.setAttribute("loginedMemberId", member.getId());
 
-		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
+		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()),"/");
 	}
 
 }

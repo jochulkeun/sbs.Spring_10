@@ -1,5 +1,6 @@
 package com.sbs.exam.demo.Controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import com.sbs.exam.demo.Service.memberService;
 import com.sbs.exam.demo.util.Ut;
 import com.sbs.exam.demo.vo.Member;
 import com.sbs.exam.demo.vo.ResultData;
+import com.sbs.exam.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
@@ -55,24 +57,21 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession httpSession) {
-		boolean isLogined = false;
-
-		if (httpSession.getAttribute("loginedMemberId") == null) {
-			isLogined = true;
-		}
-
-		if (isLogined) {
+	public String doLogout(HttpServletRequest req,HttpSession httpSession) {
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		
+		if (!rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그아웃 되어있습니다.");
 		}
 
-		httpSession.removeAttribute("loginedMemberId");
+		rq.logout();
 
 		return Ut.jsReplace(Ut.f("로그아웃 되었습니다."), "/");
 	}
 	
 	@RequestMapping("/usr/member/login")
-	public String showLogin(HttpSession httpSession) {
+	public String showLogin() {
 		
 		return "/usr/member/login";
 	}

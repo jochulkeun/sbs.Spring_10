@@ -51,4 +51,9 @@ public class Rq {
 		}
 	}
 
+	public void logout() {
+		httpSession.removeAttribute("loginedMemberId");
+		
+	}
+
 }

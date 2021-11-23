@@ -93,7 +93,7 @@ public class UsrArticleController {
 		return Ut.jsReplace(Ut.f("%d번 게시물을 삭제했습니다.", id), "/usr/article/list");
 	}
 	@RequestMapping("/usr/article/modify")
-	public String modify(HttpServletRequest req, int id) {
+	public String modify(HttpServletRequest req, Model model, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -107,7 +107,7 @@ public class UsrArticleController {
 		if (userCanModifyRd.isFail()) {
 			return rq.HistoryBackOnView(userCanModifyRd.getMsg());
 		}
-
+		model.addAttribute("article", article);
 		return "usr/article/modify";
 	}
 
@@ -127,7 +127,7 @@ public class UsrArticleController {
 		if (userCanModifyRd.isFail()) {
 			return userCanModifyRd;
 		}
-
+		
 		return articleService.modifyArticle(rq.getLoginedMemberId(), id, title, body);
 	}
 

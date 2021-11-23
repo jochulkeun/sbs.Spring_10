@@ -92,6 +92,7 @@ public class UsrArticleController {
 
 		return Ut.jsReplace(Ut.f("%d번 게시물을 삭제했습니다.", id), "/usr/article/list");
 	}
+
 	@RequestMapping("/usr/article/modify")
 	public String modify(HttpServletRequest req, Model model, int id) {
 
@@ -113,22 +114,23 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData<Article> doModify(HttpServletRequest req, int id, String title, String body) {
+	public String doModify(HttpServletRequest req, int id, String title, String body) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+
+			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		ResultData userCanModifyRd = articleService.userCanModify(rq.getLoginedMemberId(), article);
 
 		if (userCanModifyRd.isFail()) {
-			return userCanModifyRd;
+			return Ut.jsHistoryBack(userCanModifyRd.getMsg());
 		}
-		
-		return articleService.modifyArticle(rq.getLoginedMemberId(), id, title, body);
-	}
+		articleService.modifyArticle(rq.getLoginedMemberId(), id, title, body);
+		return Ut.jsReplace(Ut.f("%d 번글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 
+	}
 }

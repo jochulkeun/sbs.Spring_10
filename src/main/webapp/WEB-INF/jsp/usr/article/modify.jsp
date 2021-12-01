@@ -17,42 +17,44 @@
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td>${article.id}</td>
+						<td><div class="badge badge-primary">${article.id}</td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
-						<td>${article.regDate.substring(2,16)}</td>
+						<td><div class="badge badge-primary">${article.regDateForPrint}</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td>${article.updateDate.substring(2,16)}</td>
+						<td><div class="badge badge-primary">${article.updateDateForPrint}</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>${article.extra__writer}</td>
+						<td><div class="badge badge-primary">${article.extra__writer}</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input name="title" class="w-96" type="text" value="${article.title}"/></td>
+						<td><input name="title" class="w-96 input input-bordered"  name="title"
+                type="text" type="text" value="${article.title}"/></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea class="w-full" name="body" rows="10">${article.body}</textarea></td>
+						<td><textarea class="w-full input input-bordered" name="body" rows="10">${article.body}</textarea></td>
 					</tr>
 					<tr>
-						<th>수정</th>
-						<td><input type="submit" value="수정하기" />
-						<button type="button" onclick="history.back();">뒤로가기</button>
+					<th>수정</th>
+					<td>
+						 <button type="submit" class="btn btn-outline btn-primary">수정</button>
+						<button type="button" class="btn btn-outline btn-primary" onclick="history.back();">뒤로가기</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</form>
-		<div class="btns mt-2">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-			<a href="../article/modify?id=${article.id}"class="btn-text-link ml-2">게시물 수정</a> 
+		<div class="btns">
+			<button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
+			<a href="../article/modify?id=${article.id}"class="btn btn-link">게시물 수정</a> 
 			<c:if test="${article.extra__actorCanDelete}">
-			<a onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"href="../article/doDelete?id=${article.id}"class="btn-text-link ml-2">게시물 삭제</a>
+			<a onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"href="../article/doDelete?id=${article.id}"class="btn btn-link">게시물 삭제</a>
 			</c:if>
 		</div>
 	</div>

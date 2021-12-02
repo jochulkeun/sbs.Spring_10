@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sbs.exam.demo.Service.memberService;
+import com.sbs.exam.demo.Service.MemberService;
 import com.sbs.exam.demo.util.Ut;
 import com.sbs.exam.demo.vo.Member;
 import com.sbs.exam.demo.vo.ResultData;
@@ -15,9 +15,9 @@ import com.sbs.exam.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
-	private memberService memberService;
+	private MemberService memberService;
 
-	public UsrMemberController(memberService memberService) {
+	public UsrMemberController(MemberService memberService) {
 
 		this.memberService = memberService;
 	}

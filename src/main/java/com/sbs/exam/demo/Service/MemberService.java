@@ -9,11 +9,11 @@ import com.sbs.exam.demo.vo.ResultData;
 import com.sbs.exam.demo.vo.ResultData;
 
 @Service
-public class memberService {
+public class MemberService {
 
 	private memberRepository memberRepository;
 
-	public memberService(memberRepository memberRepository) {
+	public MemberService(memberRepository memberRepository) {
 
 		this.memberRepository = memberRepository;
 	}
@@ -21,21 +21,21 @@ public class memberService {
 	public ResultData doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 		Member oldMember = getMemberloginId(loginId);
-		if(oldMember != null) {
+		if (oldMember != null) {
 			return ResultData.from("F-7", Ut.f("(%s)은(는)사용중인 아이디 입니다.", loginId));
 		}
-		oldMember = getMemberloginIdANDemail(name,email);
-		if(oldMember != null) {
-			return ResultData.from("F-8",Ut.f("(%s)은(%s)는 사용중인 정보 입니다.", name, email));
+		oldMember = getMemberloginIdANDemail(name, email);
+		if (oldMember != null) {
+			return ResultData.from("F-8", Ut.f("(%s)은(%s)는 사용중인 정보 입니다.", name, email));
 		}
-		 memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
-		 int id = memberRepository.LastInsertId();
-		 
-		 return ResultData.from("S-1", Ut.f("회원가입이 완료되었습니다."),"id",id);
+		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNo, email);
+		int id = memberRepository.LastInsertId();
+
+		return ResultData.from("S-1", Ut.f("회원가입이 완료되었습니다."), "id", id);
 	}
 
 	public Member getMemberloginId(String loginId) {
-		
+
 		return memberRepository.getMemberloginId(loginId);
 	}
 
@@ -45,12 +45,8 @@ public class memberService {
 	}
 
 	public Member getMember(int id) {
-		
+
 		return memberRepository.getMember(id);
 	}
 
-
-	}
-
-
-
+}

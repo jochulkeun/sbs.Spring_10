@@ -18,9 +18,8 @@
 		extra__writer
 		FROM article AS A
 		LEFT JOIN `member` AS M
-		ON A.memberId =
-		M.id
-		WHERE A.id = 1
+		ON A.memberId = M.id
+		WHERE A.id = #{id}
 	</select>
 	<delete id="deleteArticle">
 		DELETE FROM article

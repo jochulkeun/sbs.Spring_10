@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.exam.demo.Service.ArticleService;
+import com.sbs.exam.demo.Service.BoardService;
 import com.sbs.exam.demo.util.Ut;
 import com.sbs.exam.demo.vo.Article;
+import com.sbs.exam.demo.vo.Board;
 import com.sbs.exam.demo.vo.ResultData;
 import com.sbs.exam.demo.vo.Rq;
 
@@ -20,11 +22,18 @@ import com.sbs.exam.demo.vo.Rq;
 public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
+	private BoardService boardService;
+
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+
+		this.articleService = articleService;
+		this.boardService = boardService;
+	}
 
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body,String replaceUri) {
+	public String doWrite(HttpServletRequest req, String title, String body, String replaceUri) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -38,28 +47,29 @@ public class UsrArticleController {
 		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		int id = (int) writeArticleRd.getData1();
 
-		if(Ut.Empty(replaceUri)) {
-			replaceUri = Ut.f("../article/detail?id=%d",id);
+		if (Ut.Empty(replaceUri)) {
+			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 
-		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.",id ),replaceUri);
+		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id), replaceUri);
 	}
-	
-	@RequestMapping("/usr/article/write")
-	public String ShowWrite(HttpServletRequest req, Model model ) {
 
-	
+	@RequestMapping("/usr/article/write")
+	public String ShowWrite(HttpServletRequest req, Model model) {
+
 		return "usr/article/write";
 	}
-	
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
+
+		Board board = boardService.getBoardIdById(boardId);
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
-
+		
+		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";

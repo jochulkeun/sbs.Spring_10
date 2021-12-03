@@ -89,12 +89,12 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
-			return Ut.jsHistoryBack(Ut.f("%d번 게시물을 존재하지않습니다.", id));
+			return rq.jsHistoryBack(Ut.f("%d번 게시물을 존재하지않습니다.", id));
 
 		}
 
 		if (article.getMemberId() != rq.getLoginedMemberId()) {
-			return Ut.jsHistoryBack("해당 게시물에 대한 권한이 없습니다");
+			return rq.jsHistoryBack("해당 게시물에 대한 권한이 없습니다");
 
 		}
 
@@ -132,15 +132,15 @@ public class UsrArticleController {
 
 		if (article == null) {
 
-			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+			return rq.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		ResultData userCanModifyRd = articleService.userCanModify(rq.getLoginedMemberId(), article);
 
 		if (userCanModifyRd.isFail()) {
-			return Ut.jsHistoryBack(userCanModifyRd.getMsg());
+			return rq.jsHistoryBack(userCanModifyRd.getMsg());
 		}
 		articleService.modifyArticle(rq.getLoginedMemberId(), id, title, body);
-		return Ut.jsReplace(Ut.f("%d 번글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
+		return rq.jsReplace(Ut.f("%d 번글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 
 	}
 }

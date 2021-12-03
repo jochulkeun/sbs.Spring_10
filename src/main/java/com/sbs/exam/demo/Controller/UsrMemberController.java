@@ -62,12 +62,12 @@ public class UsrMemberController {
 		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if (!rq.isLogined()) {
-			return Ut.jsHistoryBack("이미 로그아웃 되어있습니다.");
+			return rq.jsHistoryBack("이미 로그아웃 되어있습니다.");
 		}
 
 		rq.logout();
 
-		return Ut.jsReplace(Ut.f("로그아웃 되었습니다."), "/");
+		return rq.jsReplace(Ut.f("로그아웃 되었습니다."), "/");
 	}
 	
 	@RequestMapping("/usr/member/login")

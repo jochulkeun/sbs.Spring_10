@@ -104,4 +104,8 @@ public class ArticleService {
 		return ResultData.from("S-2", "해당은 수정가능 합니다.");
 	}
 
+	public int articlesCount(int boardId) {
+		return articleRepository.articlesCount(boardId);
+	}
+
 }

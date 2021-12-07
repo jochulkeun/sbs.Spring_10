@@ -17,9 +17,9 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public ResultData writeArticle(int memberId, String title, String body) {
+	public ResultData writeArticle(int boardId, int memberId, String title, String body) {
 
-		articleRepository.writeArticle(memberId, title, body);
+		articleRepository.writeArticle(boardId, memberId, title, body);
 		int id = articleRepository.getLastInsertId();
 		return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다", id), "id", id);
 	}
@@ -58,28 +58,27 @@ public class ArticleService {
 	}
 
 	private ResultData actorCanModify(int actorId, Article article) {
-		if(article == null) {
+		if (article == null) {
 			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
 		}
-		
-		if(article.getMemberId() != actorId) {
+
+		if (article.getMemberId() != actorId) {
 			return ResultData.from("F-1", "권한이 없습니다.");
 		}
-		
+
 		return ResultData.from("S-1", "해당 게시물은 수정이 가능합니다");
 	}
-	
 
 	private ResultData actorCanDelete(int actorId, Article article) {
-		
-		if(article == null) {
+
+		if (article == null) {
 			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
 		}
-		
-		if(article.getMemberId() != actorId) {
+
+		if (article.getMemberId() != actorId) {
 			return ResultData.from("F-1", "권한이 없습니다.");
 		}
-		
+
 		return ResultData.from("S-1", "해당 게시물 삭제가 가능합니다");
 	}
 

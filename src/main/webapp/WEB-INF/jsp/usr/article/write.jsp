@@ -21,7 +21,8 @@
 					</tr>
 					<tr>
 						<th>게시판</th>
-						<td><select class="select select-bordered" name="boardId">
+						<td>
+						<select class="select select-bordered" name="boardId">
 						<option select disabled>게시판을 선택해 주세요</option>
 						<option value="1">공지사항</option>
 						<option value="2">자유 1</option>
@@ -30,12 +31,12 @@
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input name="title" class="w-96 input input-bordered"  name="title"
+						<td><input required="required" name="title" class="w-96 input input-bordered"  name="title"
                 type="text" type="text" /></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea class="w-full input input-bordered" name="body" rows="10"></textarea></td>
+						<td><textarea required="required" class="w-full textarea textarea-bordered" name="body" rows="10"></textarea></td>
 					</tr>
 					<tr>
 					<th>수정</th>

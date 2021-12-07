@@ -25,7 +25,7 @@ public class UsrArticleController {
 	private BoardService boardService;
 	private Rq rq;
 
-	public UsrArticleController(ArticleService articleService, BoardService boardService,Rq rq) {
+	public UsrArticleController(ArticleService articleService, BoardService boardService, Rq rq) {
 
 		this.articleService = articleService;
 		this.boardService = boardService;
@@ -35,8 +35,7 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body, String replaceUri) {
-
+	public String doWrite(int boardId, String title, String body, String replaceUri) {
 
 		if (Ut.Empty(title)) {
 			return rq.jsHistoryBack("title을 입력해 주세요");
@@ -45,7 +44,7 @@ public class UsrArticleController {
 			return rq.jsHistoryBack("body을 입력해 주세요");
 		}
 
-		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		ResultData writeArticleRd = articleService.writeArticle(boardId, rq.getLoginedMemberId(), title, body);
 		int id = (int) writeArticleRd.getData1();
 
 		if (Ut.Empty(replaceUri)) {
@@ -62,18 +61,17 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList( Model model, int boardId) {
-
+	public String showList(Model model, int boardId) {
 
 		Board board = boardService.getBoardIdById(boardId);
 
-		if(board == null) {
-			
-			return rq.HistoryBackOnView(Ut.f("%d번 게시판은 존재하지 않습니다.",boardId));
+		if (board == null) {
+
+			return rq.HistoryBackOnView(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
-		int articlesCount =articleService.articlesCount(boardId);
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId);
-		
+		int articlesCount = articleService.articlesCount(boardId);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
+
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
@@ -82,8 +80,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public Object showDetail( Model model, int id) {
-
+	public Object showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -98,7 +95,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
-
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -120,7 +116,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/modify")
 	public String modify(Model model, int id) {
 
-
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
@@ -138,7 +133,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public String doModify(int id, String title, String body) {
-
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 

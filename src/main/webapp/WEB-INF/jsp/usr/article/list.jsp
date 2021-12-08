@@ -9,12 +9,12 @@
 		<div>게시물 갯수: ${articlesCount}개</div>
 		<div class="table-box-type-1">
 			<table border=1 class="table w-full table-zebra">
-			<colgroup>
-				<col width="80">
-				<col width="150">
-				<col width="150">
-				<col width="150">
-			</colgroup>
+				<colgroup>
+					<col width="80">
+					<col width="150">
+					<col width="150">
+					<col width="150">
+				</colgroup>
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -22,7 +22,7 @@
 						<th>수정날짜</th>
 						<th>작성자</th>
 						<th>제목</th>
-						
+
 					</tr>
 				</thead>
 				<tbody>
@@ -32,11 +32,19 @@
 							<td>${article.regDate.substring(2,16)}</td>
 							<td>${article.updateDate.substring(2,16)}</td>
 							<td>${article.extra__writer}</td>
-							<td><a class="btn-text-link" href="../article/detail?id=${article.id}">${article.title}</a></td>
+							<td><a class="btn-text-link"
+								href="../article/detail?id=${article.id}">${article.title}</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+		</div>
+		<div class="page-menu mt-3">
+			<div class="btn-group justify-center">
+				<c:forEach begin="1" end="20" var="i">
+					<a class="btn btn-sm ${param.page == i ? 'btn-active' : ' ' }" href = "?page=${i}">${i}</a>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 </section>

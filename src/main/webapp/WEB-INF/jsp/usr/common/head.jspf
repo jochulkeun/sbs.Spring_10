@@ -26,7 +26,6 @@
 
 </head>
 <body>
-	<h1>${titlePage }</h1>
 	<header>
 		<div class="container mx-auto flex h-20">
 			<a href="/" class="flex items-center px-3"> <span>로고</span>
@@ -64,5 +63,5 @@
 		</div>
 	</header>
 	<section class="mt-5">
-		<div class="container mx-auto px-3">${pageTitle}</div>
+		<div class="container mx-auto px-3">${titlePage}</div>
 	</section>

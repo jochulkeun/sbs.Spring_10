@@ -112,4 +112,17 @@ public class ArticleService {
 		return articleRepository.articlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 
+	public ResultData hitCount(int id) {
+
+		int affectedRows = articleRepository.hitCount(id);
+
+		if (affectedRows == 0) {
+
+			return ResultData.from("F-1", "해당 게시글이 존재하지 않습니다.", "affectedRows", affectedRows);
+		}
+
+		return ResultData.from("S-1", "조회수증가", "affectedRows", affectedRows);
+
+	}
+
 }

@@ -38,6 +38,10 @@
 						<th>작성자</th>
 						<td>${article.extra__writer}</td>
 					</tr>
+					<tr>
+						<th>조회수</th>
+						<td>${article.hitCount}</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

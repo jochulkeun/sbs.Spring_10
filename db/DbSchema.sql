@@ -92,8 +92,8 @@ INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 3,
-title = '제목3',
-`body` = '내용3';
+title = '제목4',
+`body` = '내용4';
 
 # 게시판 테이블 생성
 CREATE TABLE board (

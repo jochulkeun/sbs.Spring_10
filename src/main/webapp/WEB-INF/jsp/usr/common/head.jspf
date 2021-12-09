@@ -19,8 +19,9 @@
 
 <!-- 폰트어썸 -->
 <link rel="stylesheet" href="https://cdnjs.com/libraries/font-awesome" />
-
+<!--사이트 공통css-->
 <link rel="stylesheet" href="/resource/common.css" />
+<!--사이트 공통js-->
 <script src="/resource/common.js"></script>
 
 </head>

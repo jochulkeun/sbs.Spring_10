@@ -93,11 +93,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public Object showDetail(Model model, int id) {
 
-		ResultData increaseHitcountRd = articleService.hitCount(id);
-		if(increaseHitcountRd.isFail()) {
-			return rq.HistoryBackOnView(increaseHitcountRd.getMsg());
-		}
-		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article == null) {
@@ -106,6 +101,18 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 
 		return "/usr/article/detail";
+	}
+
+	@RequestMapping("/usr/article/doincreasehitCount")
+	@ResponseBody
+	public ResultData<Integer> doincreasehitCount(int id) {
+
+		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+		if (increaseHitCountRd.isFail()) {
+			
+			return increaseHitCountRd;
+		}
+		return ResultData.newData(increaseHitCountRd, "HitCount", articleService.getArticleHitCount(id));
 	}
 
 	@RequestMapping("/usr/article/doDelete")

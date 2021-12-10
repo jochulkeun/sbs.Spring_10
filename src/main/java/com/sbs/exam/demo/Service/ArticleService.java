@@ -112,17 +112,23 @@ public class ArticleService {
 		return articleRepository.articlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 
-	public ResultData hitCount(int id) {
+	public ResultData increaseHitCount(int id) {
 
-		int affectedRows = articleRepository.hitCount(id);
+		int affectedRowsCount = articleRepository.increaseHitCount(id);
 
-		if (affectedRows == 0) {
+		if (affectedRowsCount == 0) {
 
-			return ResultData.from("F-1", "해당 게시글이 존재하지 않습니다.", "affectedRows", affectedRows);
+			return ResultData.from("F-1", "해당 게시글이 존재하지 않습니다.", "affectedRowsCount", affectedRowsCount);
 		}
 
-		return ResultData.from("S-1", "조회수증가", "affectedRows", affectedRows);
+		return ResultData.from("S-1", "조회수증가", "affectedRowsCount", affectedRowsCount);
 
 	}
+
+	public int getArticleHitCount(int id) {
+		return articleRepository.getArticleHitCount(id);
+	}
+
+
 
 }

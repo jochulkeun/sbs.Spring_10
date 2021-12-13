@@ -54,11 +54,11 @@
 					</tr>
 					<tr>
 						<th>작성날짜</th>
-						<td>${article.regDate.substring(2,16)}</td>
+						<td>${article.forPrintType2RegDate}</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td>${article.updateDate.substring(2,16)}</td>
+						<td>${article.forPrintType2UpdateDate}</td>
 					</tr>
 					<tr>
 						<th>제목</th>
@@ -81,12 +81,12 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="btns">
-			<button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
-			<a href="../article/modify?id=${article.id}" class="btn btn-link">게시물
+		<div class="btns mt-3">
+			<button class="btn btn-outline" type="button" onclick="history.back();">뒤로가기</button>
+			<a href="../article/modify?id=${article.id}" class="btn btn-outline">게시물
 				수정</a>
 			<c:if test="${article.extra__actorCanDelete}">
-				<a class="btn btn-link"
+				<a class="btn btn-outline"
 					onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"
 					href="../article/doDelete?id=${article.id}"
 					class="btn-text-link ml-2">게시물 삭제</a>

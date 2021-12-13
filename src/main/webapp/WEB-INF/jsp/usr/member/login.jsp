@@ -25,24 +25,20 @@
 					<tr>
 						<th>로그인</th>
 						<td>
-						<button type="submit" class="btn btn-outline btn-primary">로그인</button>
-						<button type="button" class="btn btn-outline btn-accent" onclick="history.back();">뒤로가기</button>
+						<button type="submit" class="btn btn-outline ">로그인</button>
+						<button type="button" class="btn btn-outline " onclick="history.back();">뒤로가기</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</form>
-		</div>
-		
-		
-		<div class="btns">
-			<button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
-			<a href="../article/Modify=id?${article.id}"class="btn btn-link">게시물 수정</a> 
+		<div class="btns mt-3 ">
+			<button class="btn btn-outline" type="button" onclick="history.back();">뒤로가기</button>
+			<a href="../article/Modify=id?${article.id}"class="btn btn-outline">게시물 수정</a> 
 			<c:if test="${article.extra__actorCanDelete}">
 			<a onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"href="../article/doDelete?id=${article.id}"class="btn-text-link ml-2">게시물 삭제</a>
 			</c:if>
 		</div>
-		
-		
+		</div>
 </section>
 <%@ include file="../common/foot.jspf"%>

@@ -109,10 +109,16 @@ public class UsrArticleController {
 
 		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
 		if (increaseHitCountRd.isFail()) {
-			
+
 			return increaseHitCountRd;
 		}
-		return ResultData.newData(increaseHitCountRd, "HitCount", articleService.getArticleHitCount(id));
+
+		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "HitCount",
+				articleService.getArticleHitCount(id));
+		
+		rd.setData2("id",id);
+		
+		return rd;
 	}
 
 	@RequestMapping("/usr/article/doDelete")

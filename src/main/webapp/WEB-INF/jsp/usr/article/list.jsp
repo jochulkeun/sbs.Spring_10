@@ -53,7 +53,7 @@
 							<td>${article.updateDate.substring(2,16)}</td>
 							<td>${article.extra__writer}</td>
 							<td><a
-								class="btn btn-ghost btn-outline w-full block truncate"
+								class="btn btn-ghost btn-outline w-full truncate"
 								href="../article/detail?id=${article.id}">${article.title}</a></td>
 						</tr>
 					</c:forEach>

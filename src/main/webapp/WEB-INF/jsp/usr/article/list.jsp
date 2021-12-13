@@ -20,26 +20,30 @@
 					<option value="title">제목</option>
 					<option value="body">내용</option>
 					<option value="title,body">제목+내용</option>
-				</select> 
-				<input name="searchKeyword" type="text"
-					class="ml-2 w-96 input input-bordered" placeholder = "검색어를 입력해주세요" maxlength="20"
-					value = "${param.searchKeyword }"/>
-				<button class = "ml-3 btn btn-outline btn-ghost" type="submit">검색</button>
+				</select> <input name="searchKeyword" type="text"
+					class="ml-2 w-96 input input-bordered" placeholder="검색어를 입력해주세요"
+					maxlength="20" value="${param.searchKeyword }" />
+				<button class="ml-3 btn btn-outline btn-ghost" type="submit">검색</button>
 			</form>
 		</div>
 		<div class="mt-2">
 			<table border="1" class="table w-full table-zebra table-fixed">
 				<colgroup>
-					<col width="80">
+					<col width="50">
+					<col width="100">
+					<col width="100">
+					<col width="50">
+					<col width="50">
 					<col width="150">
-					<col width="150">
-					<col width="150">
+					<col>
 				</colgroup>
 				<thead>
 					<tr>
 						<th>번호</th>
 						<th>작성날짜</th>
 						<th>수정날짜</th>
+						<th>조회수</th>
+						<th>추천</th>
 						<th>작성자</th>
 						<th>제목</th>
 
@@ -51,9 +55,10 @@
 							<td>${article.id}</td>
 							<td>${article.forPrintType1RegDate}</td>
 							<td>${article.forPrintType1UpdateDate}</td>
+							<td>${article.hitCount}</td>
+							<td>${article.extra__goodReactionPoint}</td>
 							<td>${article.extra__writer}</td>
-							<td><a
-								class="btn btn-ghost btn-outline w-full truncate"
+							<td><a class="btn btn-ghost btn-outline w-full truncate"
 								href="../article/detail?id=${article.id}">${article.title}</a></td>
 						</tr>
 					</c:forEach>

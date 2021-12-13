@@ -80,16 +80,6 @@ loginPw = 'user2',
 cellphoneNo = '01098769876',
 email = 'zxcvbnm@gmail.com';
 
-
-
-SELECT * 
-FROM article;
-
-SELECT * 
-FROM `member`;
-
-SELECT LAST_INSERT_ID();
-
 # 게시물 테이블에 회원정보 추가
 ALTER TABLE article ADD COLUMN memberId INT(10)UNSIGNED NOT NULL AFTER `updateDate`; 
 
@@ -97,3 +87,149 @@ ALTER TABLE article ADD COLUMN memberId INT(10)UNSIGNED NOT NULL AFTER `updateDa
 UPDATE article
 SET memberId = 2
 WHERE memberId =0;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+title = '제목4',
+`body` = '내용4';
+
+# 게시판 테이블 생성
+CREATE TABLE board (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `code` CHAR(20) NOT NULL UNIQUE COMMENT 'notice(공지사항), free1(자유게시판1),free2(자유게시판2),...',
+    `name` CHAR(20) NOT NULL UNIQUE COMMENT '게시판 이름',
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부(0=삭제전,1=삭제)',
+    delDate DATETIME COMMENT '삭제날짜'
+);
+
+#기본 게시판 생성
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '공지사항';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free1',
+`name` = '자유1';
+
+#게시판 테이블에 boardId 칼럼 추가
+ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
+
+
+# 1,2번 게시물에 게시판 정보 추가
+UPDATE article
+SET boardId = 1
+WHERE id IN(1,2);
+
+UPDATE article
+SET boardId = 2
+WHERE id IN(3,4);
+
+#게시물 조회수 칼럼 만들기
+ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 리액션포인트 테이블
+CREATE TABLE reactionPoint(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
+    relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터번호',
+    `point` SMALLINT(2) NOT NULL
+);
+
+# 리액션포인트 테스트데이터
+## 1번 회원이 1번 article에 대해 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+## 1번 회원이 2번 article에 대해 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+## 2번 회원이 1번 article에 대해 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+## 2번 회원이 2번 article에 대해 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+## 3번 회원이 1번 article에 대해 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
+# 게시물 갯수 늘리기
+INSERT INTO article
+(
+    regDate,updateDate,memberId,boardId,title,`body`
+)
+SELECT NOW(),NOW(),FLOOR(RAND()* 3 + 1 ),FLOOR(RAND()* 2 + 1 ),CONCAT('제목_',RAND()),CONCAT('내용_',RAND())
+FROM article;
+
+
+SELECT * 
+FROM reactionPoint;
+
+SELECT * 
+FROM article;
+
+SELECT * 
+FROM `member`;
+
+SELECT * 
+FROM board;
+
+
+# 관련 리액션 포인트 가져오기
+
+SELECT A.*,
+IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+IFNULL(SUM(IF(RP.point > 0, RP.point, 0)),0) AS extra__goodReactionPoint,
+IFNULL(SUM(IF(RP.point < 0, RP.point, 0)),0) AS extra__badReactionPoint
+FROM (
+    SELECT A.*,
+    M.nickname AS extra__writerName
+    FROM article AS A
+    LEFT JOIN `member` AS M
+    ON A.memberId = M.id
+) AS A
+LEFT JOIN reactionPoint AS RP
+ON RP.relTypeCode = 'article'
+AND A.id = RP.relId
+GROUP BY A.id;
+
+

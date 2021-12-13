@@ -17,7 +17,7 @@
 				<tbody>
 					<tr>
 						<th>작성자</th>
-						<td><div class="badge badge-primary">${rq.loginedMember.nickname}</td>
+						<td><div>${rq.loginedMember.nickname}</td>
 					</tr>
 					<tr>
 						<th>게시판</th>
@@ -32,7 +32,7 @@
 					<tr>
 						<th>제목</th>
 						<td><input required="required" name="title" class="w-96 input input-bordered"  name="title"
-                type="text" type="text" /></td>
+                type="text"/></td>
 					</tr>
 					<tr>
 						<th>내용</th>
@@ -41,15 +41,15 @@
 					<tr>
 					<th>수정</th>
 					<td>
-						 <button type="submit" class="btn btn-outline btn-primary">작성</button>
+						 <button type="submit" class="btn btn-outline">작성</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</form>
-		<div class="btns">
-			<button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
-			<a href="../article/modify?id=${article.id}"class="btn btn-link">게시물 수정</a> 
+		<div class="btns mt-3">
+			<button class="btn btn-outline" type="button" onclick="history.back();">뒤로가기</button>
+			<a href="../article/modify?id=${article.id}"class="btn btn-outline">게시물 수정</a> 
 			<c:if test="${article.extra__actorCanDelete}">
 			<a onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"href="../article/doDelete?id=${article.id}"class="btn btn-link">게시물 삭제</a>
 			</c:if>

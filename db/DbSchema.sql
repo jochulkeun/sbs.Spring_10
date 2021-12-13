@@ -132,6 +132,9 @@ UPDATE article
 SET boardId = 2
 WHERE id IN(3,4);
 
+#게시물 조회수 칼럼 만들기
+ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
 INSERT INTO article
 (
     regDate,updateDate,memberId,boardId,title,`body`
@@ -148,6 +151,7 @@ FROM `member`;
 
 SELECT * 
 FROM board;
+
 
 
 

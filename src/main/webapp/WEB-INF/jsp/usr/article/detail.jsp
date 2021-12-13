@@ -6,26 +6,36 @@
 <%@ include file="../common/head.jspf"%>
 
 <script>
-  const params = {};
-  params.id = parseInt('${param.id}');
+	const params = {};
+	params.id = parseInt('${param.id}');
 </script>
 
 <script>
-  function ArticleDetail__IncreaseHitCount() {
-    $.get('../article/doIncreaseHitCountRd', {
-      id : params.id,
-      ajaxMode: 'Y'
-    }, function(data) {
-      $('.article-detail__hit-count').empty().html(data.data1);
-    }, 'json');
-  }
-  $(function() {
-    //실전
-        ArticleDetail__IncreaseHitCount();
+
 	
-    //임시
-    //setTimeout(ArticleDetail__increaseHitCount, 3000);
-  })
+	function ArticleDetail__IncreaseHitCount() {
+		const localStorageKey = 'article__' + params.id + '__viewDone';
+
+		alert(localStorageKey);
+
+		if (localStorage.getItem(localStorageKey)) {
+			return;
+		}
+		localStorage.setItem(localStorageKey, true);
+		$.get('../article/doIncreaseHitCountRd', {
+			id : params.id,
+			ajaxMode : 'Y'
+		}, function(data) {
+			$('.article-detail__hit-count').empty().html(data.data1);
+		}, 'json');
+	}
+	$(function() {
+		//실전
+		ArticleDetail__IncreaseHitCount();
+
+		//임시
+		//setTimeout(ArticleDetail__increaseHitCount, 3000);
+	})
 </script>
 
 <section class="mt-5">
@@ -64,8 +74,8 @@
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td>
-						<span class="badge badge-ghost badge-outline article-detail__hit-count">${article.hitCount}</span>
+						<td><span
+							class="badge badge-ghost badge-outline article-detail__hit-count">${article.hitCount}</span>
 						</td>
 					</tr>
 				</tbody>

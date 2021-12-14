@@ -20,7 +20,7 @@ public class Article {
 	private int extra__badReactionPoint;
 	private int extra__sumReactionPoint;
 	
-	private String extra__writer;
+	private String extra__writerName;
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
 	

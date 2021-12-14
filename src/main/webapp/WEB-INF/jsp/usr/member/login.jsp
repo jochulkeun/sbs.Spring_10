@@ -7,8 +7,7 @@
 <section class="mt-5">
 	<div class="container mx-auto px-3">
 		<form class="table-box-type-1" method="post" action="../member/doLogin" >
-			<hr />
-			<table border=1>
+			<table>
 				<colgroup>
 					<col width="200">
 				</colgroup>
@@ -16,11 +15,11 @@
 				<tbody>
 					<tr>
 						<th>로그인 아이디</th>
-						<td><input name="loginId" class="w-96 input input-bordered" type="text" /></td>
+						<td><input name="loginId" class="w-96 input input-bordered" type="text" placeholder="로그인 아이디" /></td>
 					</tr>
 					<tr>
 						<th>로그인 비밀번호</th>
-						<td><input name="loginPw" class="w-96 input input-bordered" type="text" placeholder="password"/></td>
+						<td><input name="loginPw" class="w-96 input input-bordered" type="password" placeholder="로그인 비밀번호"/></td>
 					</tr>
 					<tr>
 						<th>로그인</th>

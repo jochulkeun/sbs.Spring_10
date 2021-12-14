@@ -16,7 +16,7 @@
 	function ArticleDetail__IncreaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__viewDone';
 
-		alert(localStorageKey);
+		//alert(localStorageKey);
 
 		if (localStorage.getItem(localStorageKey)) {
 			return;
@@ -80,8 +80,16 @@
 					</tr>
 					<tr>
 						<th>추천</th>
-						<td><span
-							class="badge badge-ghost badge-outline">${article.extra__goodReactionPoint}</span>
+						<td>
+						<div class="flex items-center">
+						<span class="badge badge-ghost ">${article.extra__goodReactionPoint}</span>
+						<span>&nbsp</span>
+						<c:if test="${actorCanMakeReactionPoint}">
+							<button class="btn btn-xs">좋아요👍</button>
+							<span>&nbsp</span>
+							<button class="btn btn-xs">싫어요👎</button>
+						</c:if>
+						</div>
 						</td>
 					</tr>
 				</tbody>

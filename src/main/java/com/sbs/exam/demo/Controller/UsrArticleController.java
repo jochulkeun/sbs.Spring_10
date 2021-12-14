@@ -95,10 +95,15 @@ public class UsrArticleController {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
+		model.addAttribute("article", article);
+		
+		boolean actorCanMakeReactionPoint = articleService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), id);
+		
+		model.addAttribute("actorCanMakeReactionPoint",actorCanMakeReactionPoint);
+		
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
-		model.addAttribute("article", article);
 
 		return "/usr/article/detail";
 	}

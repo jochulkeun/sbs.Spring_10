@@ -192,6 +192,27 @@ relTypeCode = 'article',
 relId = 1,
 `point` = 1;
 
+# 게시물 테이블에 goodReactionPoint 칼럼 추가
+ALTER TABLE article ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 게시물 테이블에 badReactionPoint 칼럼 추가
+ALTER TABLE article ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+#기존 게시물에 good/badReactionPoint 의 값을 채움
+UPDATE article AS A
+INNER JOIN(
+    SELECT RP.relId,
+    SUM(IF(RP.point > 0,RP.point,0)) AS goodReactionPoint,
+    SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
+    FROM reactionPoint AS RP
+    WHERE relTypeCode = 'article'
+    GROUP BY RP.relTypeCode,RP.relId
+)AS RP_SUM
+ON A.id = RP_SUM.relId
+SET A.goodReactionPoint = RP_SUM.goodReactionPoint,
+A.badReactionPoint = RP_SUM.badReactionPoint
+
+
 # 게시물 갯수 늘리기
 INSERT INTO article
 (
@@ -213,6 +234,24 @@ FROM `member`;
 SELECT * 
 FROM board;
 
+
+# 게시물별 좋아요 싫어요 총합
+
+SELECT A.*,
+IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+IFNULL(SUM(IF(RP.point > 0, RP.point, 0)),0) AS extra__goodReactionPoint,
+IFNULL(SUM(IF(RP.point < 0, RP.point, 0)),0) AS extra__badReactionPoint
+FROM (
+    SELECT A.*,
+    M.nickname AS extra__writerName
+    FROM article AS A
+    LEFT JOIN `member` AS M
+    ON A.memberId = M.id
+) AS A
+LEFT JOIN reactionPoint AS RP
+ON RP.relTypeCode = 'article'
+AND A.id = RP.relId
+GROUP BY A.id;
 
 
 

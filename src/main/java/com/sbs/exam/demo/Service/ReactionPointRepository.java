@@ -1,5 +1,6 @@
 package com.sbs.exam.demo.Service;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,5 +15,27 @@ public interface ReactionPointRepository {
 			AND RP.memberId = #{memberId}
 			</script>
 					""")
-	public int getSumReactionPointBymemberId(int relId, String relTypeCode, int memberId);
+	public int getSumReactionPointByMemberId(int relId, String relTypeCode, int memberId);
+	
+	@Insert("""
+			INSERT INTO reactionPoint
+			SET regDate = NOW(),
+			updateDate = NOW(),
+			relTypeCode = #{relTypeCode},
+			relId = #{relId},
+			memberId = #{memberId},
+			`point` = 1
+			""")
+	public void addGoodReactionPoint(int memberId, String relTypeCode, int relId);
+	@Insert("""
+			INSERT INTO reactionPoint
+			SET regDate = NOW(),
+			updateDate = NOW(),
+			relTypeCode = #{relTypeCode},
+			relId = #{relId},
+			memberId = #{memberId},
+			`point` = -1
+			""")
+	public void addBadReactionPoint(int memberId, String relTypeCode, int relId);
+	
 }

@@ -94,19 +94,16 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public Object showDetail(Model model, int id) {
+	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
 		
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),"article", id);
-		
-		model.addAttribute("actorCanMakeReactionPoint",actorCanMakeReactionPoint);
-		
-		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
-		}
+		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),
+				"article", id);
+
+		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
 
 		return "/usr/article/detail";
 	}

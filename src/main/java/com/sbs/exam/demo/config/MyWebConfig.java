@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.sbs.exam.demo.interceptor.BeforeActionInterceptor;
-import com.sbs.exam.demo.interceptor.NeedLogininterceptor;
+import com.sbs.exam.demo.interceptor.NeedLoginInterceptor;
 
 @Configuration
 public class MyWebConfig implements WebMvcConfigurer {
@@ -15,18 +15,26 @@ public class MyWebConfig implements WebMvcConfigurer {
 	@Autowired
 	BeforeActionInterceptor beforeActionInterceptor;
 	@Autowired
-	NeedLogininterceptor needLogininterceptor;
+	NeedLoginInterceptor needLoginInterceptor;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
-		InterceptorRegistration ir = registry.addInterceptor(beforeActionInterceptor);
+		InterceptorRegistration ir;
 
-		ir.addPathPatterns("/**").excludePathPatterns("/Resource/**");
+		ir = registry.addInterceptor(beforeActionInterceptor);
+		ir.addPathPatterns("/**");
+		ir.excludePathPatterns("/favicon.ico");
+		ir.excludePathPatterns("/resource/**");
+		ir.excludePathPatterns("/error");
 
-		registry.addInterceptor(needLogininterceptor).addPathPatterns("/usr/article/doAdd")
-				.addPathPatterns("/usr/article/doDelete").addPathPatterns("/usr/article/modify")
-				.addPathPatterns("/usr/article/doModify");
-
+		ir = registry.addInterceptor(needLoginInterceptor);
+		ir.addPathPatterns("/usr/article/write");
+		ir.addPathPatterns("/usr/article/doWrite");
+		ir.addPathPatterns("/usr/article/modify");
+		ir.addPathPatterns("/usr/article/doModify");
+		ir.addPathPatterns("/usr/article/doDelete");
+		ir.addPathPatterns("/usr/reactionPoint/doGoodReaction");
+		ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
 	}
 }

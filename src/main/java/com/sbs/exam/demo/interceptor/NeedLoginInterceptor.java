@@ -9,11 +9,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.sbs.exam.demo.vo.Rq;
 
 @Component
-public class NeedLogininterceptor implements HandlerInterceptor {
+public class NeedLoginInterceptor implements HandlerInterceptor {
 
 	private Rq rq;
 
-	public NeedLogininterceptor(Rq rq) {
+	public NeedLoginInterceptor(Rq rq) {
 		this.rq = rq;
 	}
 

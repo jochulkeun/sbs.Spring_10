@@ -40,7 +40,7 @@
 					</tr>
 					<tr>
 						<th>추천</th>
-						<td><span class="badge badge-ghost badge-outline">${article.extra__goodReactionPoint}</span>
+						<td><span class="badge badge-ghost badge-outline">${article.goodReactionPoint}</span>
 						</td>
 					</tr>
 					<tr>

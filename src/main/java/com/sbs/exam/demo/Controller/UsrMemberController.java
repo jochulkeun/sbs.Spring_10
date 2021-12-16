@@ -110,4 +110,8 @@ public class UsrMemberController {
 		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()),"/");
 	}
 
+		@RequestMapping("/usr/member/myPage")
+		public String myPage() {
+			return "/usr/member/myPage";
+		}
 }

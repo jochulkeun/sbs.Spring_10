@@ -97,7 +97,7 @@
 						<c:if test="${actorCanCancelBadReaction}">
 							<a href="#" onclick="alert(this.title); return false;" title="싫어요를 취소해 주세요" class="btn btn-xs">좋아요👎</a>
 							<span>&nbsp</span>
-							<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-primary">싫어요👎</a>
+							<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-primary">싫어요👎</a>
 						</c:if>
 						</div>
 						</td>

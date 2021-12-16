@@ -26,7 +26,7 @@ public class UsrReactionPointController {
 	String doGoodReaction(Model model, String relTypeCode, int relId, String replaceUri) {
 		
 		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),
-				"article", relId);
+				"article", relId).isSuccess();
 
 		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
 		
@@ -45,7 +45,7 @@ public class UsrReactionPointController {
 	String dobadReaction(Model model, String relTypeCode, int relId, String replaceUri) {
 		
 		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),
-				"article", relId);
+				"article", relId).isSuccess();
 
 		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
 		

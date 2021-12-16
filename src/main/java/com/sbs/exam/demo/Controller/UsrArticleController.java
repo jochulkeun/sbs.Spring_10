@@ -28,7 +28,8 @@ public class UsrArticleController {
 	private ReactionPointService reactionPointService;
 	private Rq rq;
 
-	public UsrArticleController(ArticleService articleService, BoardService boardService, ReactionPointService reactionPointService, Rq rq) {
+	public UsrArticleController(ArticleService articleService, BoardService boardService,
+			ReactionPointService reactionPointService, Rq rq) {
 
 		this.articleService = articleService;
 		this.boardService = boardService;
@@ -99,11 +100,21 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
-		
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),
+
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),
 				"article", id);
 
-		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
+		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionPointRd.isSuccess());
+
+		if (actorCanMakeReactionPointRd.getResultCode().equals("F-2")) {
+			int sumReactionPointByMemberId = (int) actorCanMakeReactionPointRd.getData1();
+
+			if (sumReactionPointByMemberId > 0) {
+				model.addAttribute("actorCanCancelGoodReaction", true);
+			} else {
+				model.addAttribute("actorCanCancelBadReaction", true);
+			}
+		}
 
 		return "/usr/article/detail";
 	}
@@ -120,9 +131,9 @@ public class UsrArticleController {
 
 		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "HitCount",
 				articleService.getArticleHitCount(id));
-		
-		rd.setData2("id",id);
-		
+
+		rd.setData2("id", id);
+
 		return rd;
 	}
 
